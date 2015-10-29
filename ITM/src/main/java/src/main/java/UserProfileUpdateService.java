@@ -17,12 +17,12 @@ public class UserProfileUpdateService implements JavaDelegate {
 	 
 		   IdentityService identityService =  execution.getEngineServices().getIdentityService();
 		  
-			 User user1 = identityService.newUser("prakash");
+		/*	 User user1 = identityService.newUser("prakash");
 			 user1.setFirstName("prakash");
 		     user1.setLastName("jana");
 		     user1.setEmail("no-reply@activiti.org");
 		 
-		     identityService.saveUser(user1);
+		     identityService.saveUser(user1);*/
 		   //  Group grp =  identityService.newGroup("IT");
 		   //  identityService.createMembership("prakash", grp.getId());
 		     

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="ITMProcess" name="ITMProcess" isExecutable="true">
-    <startEvent id="startevent1" name="Start"></startEvent>
-    <serviceTask id="servicetask1" name="Service Task" activiti:class="src.main.java.ITMService"></serviceTask>
-    <endEvent id="endevent1" name="End"></endEvent>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="TicketName" name="Ticket Name" variable="Name" required="true"></activiti:formProperty>
+        <activiti:formProperty id="TicketDescription" name="Ticket Description" variable="Description" required="true"></activiti:formProperty>
+        <activiti:formProperty id="TicketCategory" name="Ticket Category" variable="Category" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="servicetask1" name="Create Task" activiti:class="src.main.java.CreateTaskService"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <endEvent id="endevent2" name="End"></endEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <serviceTask id="servicetask2" name="Assign Task " activiti:class="src.main.java.DelegateTaskService"></serviceTask>
+    <sequenceFlow id="flow4" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ITMProcess">
     <bpmndi:BPMNPlane bpmnElement="ITMProcess" id="BPMNPlane_ITMProcess">
@@ -16,14 +24,22 @@
         <omgdc:Bounds height="55.0" width="105.0" x="206.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="620.0" y="270.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="610.0" y="244.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="550.0" y="220.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="350.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="175.0" y="227.0"></omgdi:waypoint>
         <omgdi:waypoint x="206.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="258.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="402.0" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="402.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="627.0" y="244.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
